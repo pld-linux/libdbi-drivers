@@ -9,7 +9,7 @@ Summary:	Database Independent Abstraction Layer for C
 Summary(pl):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.7.1
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
@@ -105,9 +105,21 @@ zmiany ¼róde³ programu.
 %configure \
 	--disable-static \
 	--with-dbi-incdir=%{_includedir} \
-	%{?with_sqlite:--with-sqlite} \
-	%{?with_mysql:--with-mysql} \
-	%{?with_pgsql:--with-pgsql}
+%if %{with sqlite}
+	--with-sqlite \
+	--with-sqlite-libdir=%{_libdir} \
+	--with-sqlite-incdir=%{_includedir} \
+%endif
+%if %{with mysql}
+	--with-mysql \
+	--with-mysql-libdir=%{_libdir} \
+	--with-mysql-incdir=%{_includedir} \
+%endif
+%if %{with pgsql}
+	--with-pgsql \
+	--with-pgsql-libdir=%{_libdir} \
+	--with-pgsql-incdir=%{_includedir} 
+%endif
 %{__make}
 
 %install
