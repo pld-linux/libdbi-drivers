@@ -1,16 +1,19 @@
+#
+# Conditional build:
 %bcond_without mysql  # don't build mysql driver
 %bcond_without pgsql  # don't build postgresql driver
 %bcond_without sqlite # don't build sqlite driver
-%define dbiver                  0.7.1
+#
+%define dbiver	0.7.2
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl):	Warstwa DBI dla C
 Name:		libdbi-drivers
-Version:	0.7.0
+Version:	0.7.1
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
-# Source0-md5:	4a523d28b53934cdd6bf1fadf0bfc6b9
+# Source0-md5:	f11020119ceb7a6dee3969cb0589d4bc
 Patch0:		%{name}-opt.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 BuildRequires:	autoconf
@@ -92,26 +95,29 @@ zmiany ¼róde³ programu.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__automake}
 %{__autoconf}
 %configure \
+	--disable-static \
+	--with-dbi-incdir=%{_includedir} \
 	%{?with_sqlite:--with-sqlite} \
 	%{?with_mysql:--with-mysql} \
-	%{?with_pgsql:--with-pgsql} \
-	--with-dbi-incdir=%{_includedir}
+	%{?with_pgsql:--with-pgsql}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}/dbd
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
