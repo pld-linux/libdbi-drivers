@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without mysql  # don't build mysql driver
+%bcond_without mysql  # don't build MySQL driver
 %bcond_without pgsql  # don't build postgresql driver
 %bcond_without sqlite # don't build sqlite driver
 #
