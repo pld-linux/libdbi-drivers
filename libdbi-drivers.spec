@@ -104,7 +104,6 @@ zmiany ¼róde³ programu.
 %{__autoconf}
 %configure \
 	--disable-static \
-	--with-dbi-incdir=%{_includedir} \
 %if %{with sqlite}
 	--with-sqlite \
 	--with-sqlite-libdir=%{_libdir} \
@@ -118,8 +117,9 @@ zmiany ¼róde³ programu.
 %if %{with pgsql}
 	--with-pgsql \
 	--with-pgsql-libdir=%{_libdir} \
-	--with-pgsql-incdir=%{_includedir} 
+	--with-pgsql-incdir=%{_includedir} \
 %endif
+	--with-dbi-incdir=%{_includedir}
 %{__make}
 
 %install
