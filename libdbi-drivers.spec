@@ -11,6 +11,7 @@ License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
 # Source0-md5:	4a523d28b53934cdd6bf1fadf0bfc6b9
+Patch0:		%{name}-opt.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -91,6 +92,7 @@ zmiany ¼róde³ programu.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 rm -f missing
