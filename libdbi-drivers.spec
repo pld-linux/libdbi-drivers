@@ -104,7 +104,7 @@ rm -f missing
 	%{?with_sqlite:--with-sqlite} \
 	%{?with_mysql:--with-mysql} \
 	%{?with_pgsql:--with-pgsql} \
-	--with-dbi-incdir=%{_includedir} 
+	--with-dbi-incdir=%{_includedir}
 %{__make}
 
 %install
