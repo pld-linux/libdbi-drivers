@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_without mysql  # don't build MySQL driver
-%bcond_without pgsql  # don't build PostgreSQL driver
-%bcond_without sqlite # don't build sqlite driver
+%bcond_without	mysql  # don't build MySQL driver
+%bcond_without	pgsql  # don't build PostgreSQL driver
+%bcond_without	sqlite # don't build sqlite driver
 #
 %define dbiver	0.7.2
 Summary:	Database Independent Abstraction Layer for C
