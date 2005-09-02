@@ -1,28 +1,32 @@
 #
 # Conditional build:
-%bcond_without	mysql  # don't build MySQL driver
-%bcond_without	pgsql  # don't build PostgreSQL driver
-%bcond_without	sqlite # don't build sqlite driver
+%bcond_without	firebird	# don't build Firebird driver
+%bcond_without	mysql		# don't build MySQL driver
+%bcond_without	pgsql		# don't build PostgreSQL driver
+%bcond_without	sqlite		# don't build sqlite driver
+%bcond_without	sqlite3		# don't build sqlite3 driver
 #
-%define dbiver	0.7.2
+%define dbiver	0.8.0
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl):	Warstwa DBI dla C
 Name:		libdbi-drivers
-Version:	0.7.1
-Release:	3
+Version:	0.8.0
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
-# Source0-md5:	f11020119ceb7a6dee3969cb0589d4bc
+# Source0-md5:	cac2d09b90d2c58b01425d5e855f5499
 Patch0:		%{name}-opt.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	libtool
 BuildRequires:	libdbi-devel >= %{dbiver}
 %{?with_mysql:BuildRequires:	mysql-devel}
 %{?with_pgsql:BuildRequires:	postgresql-devel}
 %{?with_sqlite:BuildRequires:	sqlite-devel}
+%{?with_sqlite3:BuildRequires:	sqlite3-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,6 +40,24 @@ libdbi jest implementacj± w C warstwy abstrakcyjnej niezale¿nej od
 bazy danych, podobnej do warstwy DBI/DBD w Perlu. U¿ywaj±c tego
 ¶rodowiska programista mo¿e za pomoc± jednego, wspólnego kodu
 odwo³ywaæ siê do wielu ró¿nych baz danych, tak¿e jednocze¶nie.
+
+%package firebird
+Summary:	Firebird plugin for libdbi
+Summary(pl):	Wtyczka Firebird dla libdbi
+Group:		Libraries
+Requires:	libdbi >= %{dbiver}
+Provides:	libdbi-dbd = %{version}-%{release}
+
+%description firebird
+This plugin provides connectivity to Firebird database servers through
+the libdbi database independent abstraction layer. Switching a
+program's plugin does not require recompilation or rewriting source
+code.
+
+%description firebird -l pl
+Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami Firebird poprzez
+bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ¼róde³ programu.
 
 %package mysql
 Summary:	MySQL plugin for libdbi
@@ -93,6 +115,23 @@ Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z silnikiem SQLite poprzez
 bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
 zmiany ¼róde³ programu.
 
+%package sqlite3
+Summary:	SQLite3 plugin for libdbi
+Summary(pl):	Wtyczka SQLite3 dla libdbi
+Group:		Libraries
+Requires:	libdbi >= %{dbiver}
+Provides:	libdbi-dbd = %{version}-%{release}
+
+%description sqlite3
+This plugin provides connectivity to SQLite3 engine through the libdbi
+database independent abstraction layer. Switching a program's plugin
+does not require recompilation or rewriting source code.
+
+%description sqlite3 -l pl
+Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z silnikiem SQLite3 poprzez
+bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ¼róde³ programu.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -104,10 +143,10 @@ zmiany ¼róde³ programu.
 %{__autoconf}
 %configure \
 	--disable-static \
-%if %{with sqlite}
-	--with-sqlite \
-	--with-sqlite-libdir=%{_libdir} \
-	--with-sqlite-incdir=%{_includedir} \
+%if %{with firebird}
+	--with-firebird \
+	--with-firebird-libdir=%{_libdir} \
+	--with-firebird-incdir=%{_includedir} \
 %endif
 %if %{with mysql}
 	--with-mysql \
@@ -118,6 +157,16 @@ zmiany ¼róde³ programu.
 	--with-pgsql \
 	--with-pgsql-libdir=%{_libdir} \
 	--with-pgsql-incdir=%{_includedir} \
+%endif
+%if %{with sqlite}
+	--with-sqlite \
+	--with-sqlite-libdir=%{_libdir} \
+	--with-sqlite-incdir=%{_includedir} \
+%endif
+%if %{with sqlite}
+	--with-sqlite3 \
+	--with-sqlite3-libdir=%{_libdir} \
+	--with-sqlite3-incdir=%{_includedir} \
 %endif
 	--with-dbi-incdir=%{_includedir}
 %{__make}
@@ -135,22 +184,36 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with mysql}
+%files firebird
+%defattr(644,root,root,755)
+%doc drivers/firebird/{AUTHORS,README,TODO}
+%attr(755,root,root) %{_libdir}/dbd/libfirebird.so
+%endif
+
+%if %{with mysql}
 %files mysql
 %defattr(644,root,root,755)
-%doc drivers/mysql/*.pdf drivers/mysql/dbd_mysql
+%doc drivers/mysql/{AUTHORS,README,TODO,*.pdf,dbd_mysql}
 %attr(755,root,root) %{_libdir}/dbd/libmysql.so
 %endif
 
 %if %{with pgsql}
 %files pgsql
 %defattr(644,root,root,755)
-%doc drivers/pgsql/*.pdf drivers/pgsql/dbd_pgsql
+%doc drivers/pgsql/{AUTHORS,README,TODO,*.pdf,dbd_pgsql}
 %attr(755,root,root) %{_libdir}/dbd/libpgsql.so
 %endif
 
 %if %{with sqlite}
 %files sqlite
 %defattr(644,root,root,755)
-%doc drivers/sqlite/*.pdf drivers/sqlite/dbd_sqlite
+%doc drivers/sqlite/{AUTHORS,README,TODO,*.pdf,dbd_sqlite}
 %{_libdir}/dbd/libsqlite.so
+%endif
+
+%if %{with sqlite3}
+%files sqlite3
+%defattr(644,root,root,755)
+%doc drivers/sqlite3/{AUTHORS,README,TODO,*.pdf,dbd_sqlite3}
+%{_libdir}/dbd/libsqlite3.so
 %endif
