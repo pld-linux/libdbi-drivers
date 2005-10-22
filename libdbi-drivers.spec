@@ -1,26 +1,28 @@
 #
 # Conditional build:
 %bcond_without	firebird	# don't build Firebird driver
+%bcond_without	freetds		# don't build FreeTDS driver
 %bcond_without	mysql		# don't build MySQL driver
 %bcond_without	pgsql		# don't build PostgreSQL driver
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
 #
-%define dbiver	0.8.0
+%define dbiver	0.8.1
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl):	Warstwa DBI dla C
 Name:		libdbi-drivers
-Version:	0.8.0
+Version:	0.8.1
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
-# Source0-md5:	cac2d09b90d2c58b01425d5e855f5499
+# Source0-md5:	bca4dd6184e3e78676c35eb9a7ae1186
 Patch0:		%{name}-opt.patch
 URL:		http://libdbi-drivers.sourceforge.net/
+%{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_firebird:BuildRequires:	Firebird-devel}
+%{?with_freetds:BuildRequires:	freetds-devel}
 BuildRequires:	libtool
 BuildRequires:	libdbi-devel >= %{dbiver}
 %{?with_mysql:BuildRequires:	mysql-devel}
@@ -58,6 +60,24 @@ code.
 Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami Firebird poprzez
 bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
 zmiany ¼róde³ programu.
+
+%package freetds
+Summary:	FreeTDS plugin for libdbi
+Summary(pl):	Wtyczka FreeTDS dla libdbi
+Group:		Libraries
+Requires:	libdbi >= %{dbiver}
+Provides:	libdbi-dbd = %{version}-%{release}
+
+%description freetds
+This plugin provides connectivity to MS SQL/Sybase database servers
+through the libdbi database independent abstraction layer. Switching a
+program's plugin does not require recompilation or rewriting source
+code.
+
+%description freetds -l pl
+Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami MS SQL/Sybase
+poprzez bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga
+rekompilacji ani zmiany ¼róde³ programu.
 
 %package mysql
 Summary:	MySQL plugin for libdbi
@@ -148,6 +168,11 @@ zmiany ¼róde³ programu.
 	--with-firebird-libdir=%{_libdir} \
 	--with-firebird-incdir=%{_includedir} \
 %endif
+%if %{with freetds}
+	--with-freetds \
+	--with-freetds-libdir=%{_libdir} \
+	--with-freetds-incdir=%{_includedir} \
+%endif
 %if %{with mysql}
 	--with-mysql \
 	--with-mysql-libdir=%{_libdir} \
@@ -183,11 +208,17 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if %{with mysql}
+%if %{with firebird}
 %files firebird
 %defattr(644,root,root,755)
 %doc drivers/firebird/{AUTHORS,README,TODO}
 %attr(755,root,root) %{_libdir}/dbd/libfirebird.so
+%endif
+
+%if %{with freetds}
+%files freetds
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/dbd/libfreetds.so
 %endif
 
 %if %{with mysql}
