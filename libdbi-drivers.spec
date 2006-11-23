@@ -12,7 +12,7 @@ Summary:	Database Independent Abstraction Layer for C
 Summary(pl):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.8.1
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
