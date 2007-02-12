@@ -9,7 +9,7 @@
 #
 %define dbiver	0.8.1
 Summary:	Database Independent Abstraction Layer for C
-Summary(pl):	Warstwa DBI dla C
+Summary(pl.UTF-8):   Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.8.1
 Release:	4
@@ -37,15 +37,15 @@ similar to the DBI/DBD layer in Perl. Writing one generic set of code,
 programmers can leverage the power of multiple databases and multiple
 simultaneous database connections by using this framework.
 
-%description -l pl
-libdbi jest implementacj± w C warstwy abstrakcyjnej niezale¿nej od
-bazy danych, podobnej do warstwy DBI/DBD w Perlu. U¿ywaj±c tego
-¶rodowiska programista mo¿e za pomoc± jednego, wspólnego kodu
-odwo³ywaæ siê do wielu ró¿nych baz danych, tak¿e jednocze¶nie.
+%description -l pl.UTF-8
+libdbi jest implementacjÄ… w C warstwy abstrakcyjnej niezaleÅ¼nej od
+bazy danych, podobnej do warstwy DBI/DBD w Perlu. UÅ¼ywajÄ…c tego
+Å›rodowiska programista moÅ¼e za pomocÄ… jednego, wspÃ³lnego kodu
+odwoÅ‚ywaÄ‡ siÄ™ do wielu rÃ³Å¼nych baz danych, takÅ¼e jednoczeÅ›nie.
 
 %package firebird
 Summary:	Firebird plugin for libdbi
-Summary(pl):	Wtyczka Firebird dla libdbi
+Summary(pl.UTF-8):   Wtyczka Firebird dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -56,14 +56,14 @@ the libdbi database independent abstraction layer. Switching a
 program's plugin does not require recompilation or rewriting source
 code.
 
-%description firebird -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami Firebird poprzez
-bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
-zmiany ¼róde³ programu.
+%description firebird -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z serwerami Firebird poprzez
+bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ÅºrÃ³deÅ‚ programu.
 
 %package freetds
 Summary:	FreeTDS plugin for libdbi
-Summary(pl):	Wtyczka FreeTDS dla libdbi
+Summary(pl.UTF-8):   Wtyczka FreeTDS dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -74,14 +74,14 @@ through the libdbi database independent abstraction layer. Switching a
 program's plugin does not require recompilation or rewriting source
 code.
 
-%description freetds -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami MS SQL/Sybase
-poprzez bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga
-rekompilacji ani zmiany ¼róde³ programu.
+%description freetds -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z serwerami MS SQL/Sybase
+poprzez bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga
+rekompilacji ani zmiany ÅºrÃ³deÅ‚ programu.
 
 %package mysql
 Summary:	MySQL plugin for libdbi
-Summary(pl):	Wtyczka MySQL dla libdbi
+Summary(pl.UTF-8):   Wtyczka MySQL dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -93,14 +93,14 @@ the libdbi database independent abstraction layer. Switching a
 program's plugin does not require recompilation or rewriting source
 code.
 
-%description mysql -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami MySQL poprzez
-bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
-zmiany ¼róde³ programu.
+%description mysql -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z serwerami MySQL poprzez
+bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ÅºrÃ³deÅ‚ programu.
 
 %package pgsql
 Summary:	PostgreSQL plugin for libdbi
-Summary(pl):	Wtyczka PostgreSQL dla libdbi
+Summary(pl.UTF-8):   Wtyczka PostgreSQL dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -112,14 +112,14 @@ through the libdbi database independent abstraction layer. Switching a
 program's plugin does not require recompilation or rewriting source
 code.
 
-%description pgsql -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z serwerami PostgreSQL poprzez
-bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
-zmiany ¼róde³ programu.
+%description pgsql -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z serwerami PostgreSQL poprzez
+bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ÅºrÃ³deÅ‚ programu.
 
 %package sqlite
 Summary:	SQLite plugin for libdbi
-Summary(pl):	Wtyczka SQLite dla libdbi
+Summary(pl.UTF-8):   Wtyczka SQLite dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -130,14 +130,14 @@ through the libdbi database independent abstraction layer. Switching a
 program's plugin does not require recompilation or rewriting source
 code.
 
-%description sqlite -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z silnikiem SQLite poprzez
-bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
-zmiany ¼róde³ programu.
+%description sqlite -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z silnikiem SQLite poprzez
+bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ÅºrÃ³deÅ‚ programu.
 
 %package sqlite3
 Summary:	SQLite3 plugin for libdbi
-Summary(pl):	Wtyczka SQLite3 dla libdbi
+Summary(pl.UTF-8):   Wtyczka SQLite3 dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -147,10 +147,10 @@ This plugin provides connectivity to SQLite3 engine through the libdbi
 database independent abstraction layer. Switching a program's plugin
 does not require recompilation or rewriting source code.
 
-%description sqlite3 -l pl
-Ta wtyczka daje mo¿liwo¶æ ³±czenia siê z silnikiem SQLite3 poprzez
-bibliotekê libdbi. Zmiana u¿ywanej wtyczki nie wymaga rekompilacji ani
-zmiany ¼róde³ programu.
+%description sqlite3 -l pl.UTF-8
+Ta wtyczka daje moÅ¼liwoÅ›Ä‡ Å‚Ä…czenia siÄ™ z silnikiem SQLite3 poprzez
+bibliotekÄ™ libdbi. Zmiana uÅ¼ywanej wtyczki nie wymaga rekompilacji ani
+zmiany ÅºrÃ³deÅ‚ programu.
 
 %prep
 %setup -q
