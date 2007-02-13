@@ -9,7 +9,7 @@
 #
 %define dbiver	0.8.1
 Summary:	Database Independent Abstraction Layer for C
-Summary(pl.UTF-8):   Warstwa DBI dla C
+Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.8.1
 Release:	4
@@ -45,7 +45,7 @@ odwoływać się do wielu różnych baz danych, także jednocześnie.
 
 %package firebird
 Summary:	Firebird plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka Firebird dla libdbi
+Summary(pl.UTF-8):	Wtyczka Firebird dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -63,7 +63,7 @@ zmiany źródeł programu.
 
 %package freetds
 Summary:	FreeTDS plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka FreeTDS dla libdbi
+Summary(pl.UTF-8):	Wtyczka FreeTDS dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -81,7 +81,7 @@ rekompilacji ani zmiany źródeł programu.
 
 %package mysql
 Summary:	MySQL plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka MySQL dla libdbi
+Summary(pl.UTF-8):	Wtyczka MySQL dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -100,7 +100,7 @@ zmiany źródeł programu.
 
 %package pgsql
 Summary:	PostgreSQL plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka PostgreSQL dla libdbi
+Summary(pl.UTF-8):	Wtyczka PostgreSQL dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -119,7 +119,7 @@ zmiany źródeł programu.
 
 %package sqlite
 Summary:	SQLite plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka SQLite dla libdbi
+Summary(pl.UTF-8):	Wtyczka SQLite dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
@@ -137,7 +137,7 @@ zmiany źródeł programu.
 
 %package sqlite3
 Summary:	SQLite3 plugin for libdbi
-Summary(pl.UTF-8):   Wtyczka SQLite3 dla libdbi
+Summary(pl.UTF-8):	Wtyczka SQLite3 dla libdbi
 Group:		Libraries
 Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
