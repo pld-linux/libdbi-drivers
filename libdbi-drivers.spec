@@ -7,16 +7,16 @@
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
 #
-%define dbiver	0.8.1
+%define dbiver	0.8.2
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
-Version:	0.8.1
-Release:	4
+Version:	0.8.2
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}.tar.gz
-# Source0-md5:	bca4dd6184e3e78676c35eb9a7ae1186
+Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
+# Source0-md5:	d7535f03fafd321acf37dee96430599f
 Patch0:		%{name}-opt.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %{?with_firebird:BuildRequires:	Firebird-devel}
@@ -153,7 +153,7 @@ bibliotekę libdbi. Zmiana używanej wtyczki nie wymaga rekompilacji ani
 zmiany źródeł programu.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-1
 %patch0 -p1
 
 %build
@@ -212,39 +212,39 @@ rm -rf $RPM_BUILD_ROOT
 %files firebird
 %defattr(644,root,root,755)
 %doc drivers/firebird/{AUTHORS,README,TODO}
-%attr(755,root,root) %{_libdir}/dbd/libfirebird.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdfirebird.so
 %endif
 
 %if %{with freetds}
 %files freetds
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/dbd/libfreetds.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdfreetds.so
 %endif
 
 %if %{with mysql}
 %files mysql
 %defattr(644,root,root,755)
 %doc drivers/mysql/{AUTHORS,README,TODO,*.pdf,dbd_mysql}
-%attr(755,root,root) %{_libdir}/dbd/libmysql.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdmysql.so
 %endif
 
 %if %{with pgsql}
 %files pgsql
 %defattr(644,root,root,755)
 %doc drivers/pgsql/{AUTHORS,README,TODO,*.pdf,dbd_pgsql}
-%attr(755,root,root) %{_libdir}/dbd/libpgsql.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdpgsql.so
 %endif
 
 %if %{with sqlite}
 %files sqlite
 %defattr(644,root,root,755)
 %doc drivers/sqlite/{AUTHORS,README,TODO,*.pdf,dbd_sqlite}
-%{_libdir}/dbd/libsqlite.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdsqlite.so
 %endif
 
 %if %{with sqlite3}
 %files sqlite3
 %defattr(644,root,root,755)
 %doc drivers/sqlite3/{AUTHORS,README,TODO,*.pdf,dbd_sqlite3}
-%{_libdir}/dbd/libsqlite3.so
+%attr(755,root,root) %{_libdir}/dbd/libdbdsqlite3.so
 %endif
