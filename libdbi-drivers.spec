@@ -195,7 +195,8 @@ zmiany źródeł programu.
 	--with-sqlite3-libdir=%{_libdir} \
 	--with-sqlite3-incdir=%{_includedir} \
 %endif
-	--with-dbi-incdir=%{_includedir}
+	--with-dbi-incdir=%{_includedir} \
+	--with-dbi-libdir=%{_libdir}
 %{__make}
 
 %install
