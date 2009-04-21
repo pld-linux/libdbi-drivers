@@ -1,0 +1,33 @@
+diff -urN libdbi-drivers.orig/drivers/firebird/Makefile.am libdbi-drivers/drivers/firebird/Makefile.am
+--- libdbi-drivers.orig/drivers/firebird/Makefile.am	2008-03-04 08:57:55.000000000 +0100
++++ libdbi-drivers/drivers/firebird/Makefile.am	2009-04-21 09:40:25.000000000 +0200
+@@ -60,5 +60,5 @@
+ 	rm -f dbd_firebird.pdf dbd_firebird/*
+ 
+ install-data-local:
+-	$(mkinstalldirs) @dbi_dbdir@/firebird
+-	chmod 1777 @dbi_dbdir@/firebird
++	$(mkinstalldirs) $(DESTDIR)@dbi_dbdir@/firebird
++	chmod 1777 $(DESTDIR)@dbi_dbdir@/firebird
+diff -urN libdbi-drivers.orig/drivers/sqlite/Makefile.am libdbi-drivers/drivers/sqlite/Makefile.am
+--- libdbi-drivers.orig/drivers/sqlite/Makefile.am	2008-03-04 08:57:55.000000000 +0100
++++ libdbi-drivers/drivers/sqlite/Makefile.am	2009-04-21 09:40:17.000000000 +0200
+@@ -63,5 +63,5 @@
+ 	rm -f dbd_sqlite.pdf dbd_sqlite/*
+ 
+ install-data-local:
+-	$(mkinstalldirs) @dbi_dbdir@/sqlite	
+-	chmod 1777 @dbi_dbdir@/sqlite
++	$(mkinstalldirs) $(DESTDIR)@dbi_dbdir@/sqlite	
++	chmod 1777 $(DESTDIR)@dbi_dbdir@/sqlite
+diff -urN libdbi-drivers.orig/drivers/sqlite3/Makefile.am libdbi-drivers/drivers/sqlite3/Makefile.am
+--- libdbi-drivers.orig/drivers/sqlite3/Makefile.am	2008-03-04 08:57:55.000000000 +0100
++++ libdbi-drivers/drivers/sqlite3/Makefile.am	2009-04-21 09:40:12.000000000 +0200
+@@ -63,5 +63,5 @@
+ 	rm -f dbd_sqlite3.pdf dbd_sqlite3/*
+ 
+ install-data-local:
+-	$(mkinstalldirs) @dbi_dbdir@/sqlite3
+-	chmod 1777 @dbi_dbdir@/sqlite3
++	$(mkinstalldirs) $(DESTDIR)@dbi_dbdir@/sqlite3
++	chmod 1777 $(DESTDIR)@dbi_dbdir@/sqlite3
