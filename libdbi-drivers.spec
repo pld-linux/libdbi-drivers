@@ -7,18 +7,23 @@
 %bcond_without	pgsql		# don't build PostgreSQL driver
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
+%bcond_without	doc			# don't build documentation
 #
-%define dbiver	0.8.3
+%define dbiver	0.8.4
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
-Version:	0.8.3
-Release:	1
+%define	_snap	20090420
+Version:	0.8.4
+Release:	0.%{_snap}.1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
+#Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
+Source0:	%{name}-%{_snap}.tar.gz
 # Source0-md5:	4de79b323162a5a7652b65b608eca6cd
-Patch0:		%{name}-opt.patch
+Patch0:		%{name}-destdir.patch
+Patch1:		%{name}-docs_acfix.patch
+Patch2:		%{name}-sqlite3_libs.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf
@@ -154,8 +159,10 @@ bibliotekę libdbi. Zmiana używanej wtyczki nie wymaga rekompilacji ani
 zmiany źródeł programu.
 
 %prep
-%setup -q -n %{name}-%{version}-1
+%setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -165,6 +172,7 @@ zmiany źródeł programu.
 %{__automake}
 %configure \
 	--disable-static \
+	%{!?with_doc:--disable-docs} \
 %if %{with firebird}
 	--with-firebird \
 	--with-firebird-libdir=%{_libdir} \
@@ -190,7 +198,7 @@ zmiany źródeł programu.
 	--with-sqlite-libdir=%{_libdir} \
 	--with-sqlite-incdir=%{_includedir} \
 %endif
-%if %{with sqlite}
+%if %{with sqlite3}
 	--with-sqlite3 \
 	--with-sqlite3-libdir=%{_libdir} \
 	--with-sqlite3-incdir=%{_includedir} \
@@ -217,7 +225,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with firebird}
 %files firebird
 %defattr(644,root,root,755)
-%doc drivers/firebird/{AUTHORS,README,TODO,dbd_firebird}
+%doc drivers/firebird/{AUTHORS,README,TODO%{?with_doc:,dbd_firebird}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdfirebird.so
 %endif
 
@@ -231,27 +239,27 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with mysql}
 %files mysql
 %defattr(644,root,root,755)
-%doc drivers/mysql/{AUTHORS,README,TODO,dbd_mysql.pdf,dbd_mysql}
+%doc drivers/mysql/{AUTHORS,README,TODO%{?with_doc:,dbd_mysql.pdf,dbd_mysql}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdmysql.so
 %endif
 
 %if %{with pgsql}
 %files pgsql
 %defattr(644,root,root,755)
-%doc drivers/pgsql/{AUTHORS,README,TODO,dbd_pgsql.pdf,dbd_pgsql}
+%doc drivers/pgsql/{AUTHORS,README,TODO%{?with_doc:,dbd_pgsql.pdf,dbd_pgsql}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdpgsql.so
 %endif
 
 %if %{with sqlite}
 %files sqlite
 %defattr(644,root,root,755)
-%doc drivers/sqlite/{AUTHORS,README,TODO,dbd_sqlite.pdf,dbd_sqlite}
+%doc drivers/sqlite/{AUTHORS,README,TODO%{?with_doc:,dbd_sqlite.pdf,dbd_sqlite}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdsqlite.so
 %endif
 
 %if %{with sqlite3}
 %files sqlite3
 %defattr(644,root,root,755)
-%doc drivers/sqlite3/{AUTHORS,README,TODO,dbd_sqlite3.pdf,dbd_sqlite3}
+%doc drivers/sqlite3/{AUTHORS,README,TODO%{?with_doc:,dbd_sqlite3.pdf,dbd_sqlite3}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdsqlite3.so
 %endif
