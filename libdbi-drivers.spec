@@ -20,7 +20,7 @@ License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
 Source0:	%{name}-%{_snap}.tar.gz
-# Source0-md5:	4de79b323162a5a7652b65b608eca6cd
+# Source0-md5:	c0a2dae1a28e1815353823c3fe09917f
 Patch0:		%{name}-destdir.patch
 Patch1:		%{name}-docs_acfix.patch
 Patch2:		%{name}-sqlite3_libs.patch
