@@ -9,7 +9,7 @@
 %bcond_without	pgsql		# don't build PostgreSQL driver
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
-%bcond_wit	doc			# don't build documentation
+%bcond_with	doc			# don't build documentation
 #
 %define dbiver	0.8.4
 Summary:	Database Independent Abstraction Layer for C
@@ -17,7 +17,7 @@ Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 %define	_snap	20090420
 Version:	0.8.4
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.3
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
