@@ -1,6 +1,5 @@
 # TODO:
 # - add support for ingres, msql, oracle
-# - fix doc bcond build
 #
 # Conditional build:
 %bcond_without	firebird	# don't build Firebird driver
@@ -9,24 +8,38 @@
 %bcond_without	pgsql		# don't build PostgreSQL driver
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
-%bcond_with	doc			# don't build documentation
+%bcond_without	doc			# don't build documentation
 #
-%define dbiver	0.8.4
+%define dbiver	0.9.0
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
-%define	_snap	20090420
-Version:	0.8.4
-Release:	0.%{_snap}.3
+%define	_snap	20100921
+Version:	0.9.0
+Release:	0.%{_snap}.1
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
 Source0:	%{name}-%{_snap}.tar.gz
-# Source0-md5:	c0a2dae1a28e1815353823c3fe09917f
-Patch0:		%{name}-destdir.patch
-Patch1:		%{name}-docs_acfix.patch
-Patch2:		%{name}-sqlite3_libs.patch
+# Source0-md5:	3e3b1df63ab59f9246111db7fbad8310
+Patch0:		%{name}-sqlite3_libs.patch
 URL:		http://libdbi-drivers.sourceforge.net/
+%if %{with doc}
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-style-dsssl
+BuildRequires:	jadetex
+BuildRequires:	openjade
+BuildRequires:	texlive-fonts-ams
+BuildRequires:	texlive-fonts-marvosym
+BuildRequires:	texlive-fonts-stmaryrd
+BuildRequires:	texlive-fonts-type1-urw
+BuildRequires:	texlive-format-pdflatex
+BuildRequires:	texlive-latex-ams
+BuildRequires:	texlive-latex-extend
+BuildRequires:	texlive-latex-wasysym
+BuildRequires:	texlive-xetex
+BuildRequires:	texlive-xmltex
+%endif
 %{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -163,8 +176,6 @@ zmiany źródeł programu.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -217,6 +228,7 @@ install -d $RPM_BUILD_ROOT%{_libdir}/dbd
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la
+rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
