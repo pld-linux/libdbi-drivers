@@ -16,7 +16,7 @@ Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 %define	_snap	20100921
 Version:	0.9.0
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
