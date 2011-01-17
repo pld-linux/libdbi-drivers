@@ -14,14 +14,14 @@
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
-%define	_snap	20100921
+%define	_snap	20110117
 Version:	0.9.0
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.1
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
 Source0:	%{name}-%{_snap}.tar.gz
-# Source0-md5:	3e3b1df63ab59f9246111db7fbad8310
+# Source0-md5:	e017f57cf6742a87bcac898e4d43ed26
 Patch0:		%{name}-sqlite3_libs.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %if %{with doc}
