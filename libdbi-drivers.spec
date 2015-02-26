@@ -9,18 +9,19 @@
 %bcond_without	sqlite		# don't build sqlite driver
 %bcond_without	sqlite3		# don't build sqlite3 driver
 %bcond_with	doc			# don't build documentation
-#
+
 %define dbiver	0.9.0
+%define	snap	20110117
+%define	rel		5
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
-%define	_snap	20110117
 Version:	0.9.0
-Release:	0.%{_snap}.4
+Release:	0.%{snap}.%{rel}
 License:	LGPL v2+
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
-Source0:	%{name}-%{_snap}.tar.gz
+Source0:	%{name}-%{snap}.tar.gz
 # Source0-md5:	e017f57cf6742a87bcac898e4d43ed26
 Patch0:		%{name}-sqlite3_libs.patch
 URL:		http://libdbi-drivers.sourceforge.net/
@@ -44,8 +45,8 @@ BuildRequires:	texlive-xmltex
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_freetds:BuildRequires:	freetds-devel}
-BuildRequires:	libtool
 BuildRequires:	libdbi-devel >= %{dbiver}
+BuildRequires:	libtool
 %{?with_mysql:BuildRequires:	mysql-devel}
 %{?with_pgsql:BuildRequires:	postgresql-devel}
 %{?with_sqlite:BuildRequires:	sqlite-devel}
@@ -146,10 +147,9 @@ Requires:	libdbi >= %{dbiver}
 Provides:	libdbi-dbd = %{version}-%{release}
 
 %description sqlite
-This plugin provides connectivity to SQLite engine
-through the libdbi database independent abstraction layer. Switching a
-program's plugin does not require recompilation or rewriting source
-code.
+This plugin provides connectivity to SQLite engine through the libdbi
+database independent abstraction layer. Switching a program's plugin
+does not require recompilation or rewriting source code.
 
 %description sqlite -l pl.UTF-8
 Ta wtyczka daje możliwość łączenia się z silnikiem SQLite poprzez
@@ -229,7 +229,7 @@ install -d $RPM_BUILD_ROOT%{_libdir}/dbd
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+rm -rf $RPM_BUILD_ROOT%{_docdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
