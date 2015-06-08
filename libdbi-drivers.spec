@@ -1,30 +1,39 @@
 # TODO:
-# - add support for ingres, msql, oracle
+# - add support for db2, ingres, msql
 #
 # Conditional build:
-%bcond_without	firebird	# don't build Firebird driver
-%bcond_without	freetds		# don't build FreeTDS driver
-%bcond_without	mysql		# don't build MySQL driver
-%bcond_without	pgsql		# don't build PostgreSQL driver
-%bcond_without	sqlite		# don't build sqlite driver
-%bcond_without	sqlite3		# don't build sqlite3 driver
-%bcond_with	doc			# don't build documentation
+%bcond_without	firebird	# Firebird driver
+%bcond_without	freetds		# FreeTDS driver
+%bcond_without	mysql		# MySQL driver
+%bcond_with	oci		# Oracle driver
+%bcond_without	pgsql		# PostgreSQL driver
+%bcond_without	sqlite		# sqlite driver
+%bcond_without	sqlite3		# sqlite3 driver
+%bcond_with	doc		# documentation
 
 %define dbiver	0.9.0
-%define	snap	20110117
-%define	rel		5
 Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.9.0
-Release:	0.%{snap}.%{rel}
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-#Source0:	http://dl.sourceforge.net/libdbi-drivers/libdbi-drivers-%{version}-1.tar.gz
-Source0:	%{name}-%{snap}.tar.gz
-# Source0-md5:	e017f57cf6742a87bcac898e4d43ed26
+Source0:	http://downloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.gz
+# Source0-md5:	9f47b960e225eede2cdeaabf7d22f59f
 Patch0:		%{name}-sqlite3_libs.patch
 URL:		http://libdbi-drivers.sourceforge.net/
+%{?with_firebird:BuildRequires:	Firebird-devel}
+BuildRequires:	autoconf >= 2.13
+BuildRequires:	automake
+%{?with_freetds:BuildRequires:	freetds-devel}
+BuildRequires:	libdbi-devel >= %{dbiver}
+BuildRequires:	libtool >= 2:2
+%{?with_mysql:BuildRequires:	mysql-devel}
+%{?with_oci:BuildRequires:	oracle-instantclient-devel}
+%{?with_pgsql:BuildRequires:	postgresql-devel}
+%{?with_sqlite:BuildRequires:	sqlite-devel}
+%{?with_sqlite3:BuildRequires:	sqlite3-devel >= 3}
 %if %{with doc}
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-style-dsssl
@@ -41,16 +50,6 @@ BuildRequires:	texlive-latex-wasysym
 BuildRequires:	texlive-xetex
 BuildRequires:	texlive-xmltex
 %endif
-%{?with_firebird:BuildRequires:	Firebird-devel}
-BuildRequires:	autoconf
-BuildRequires:	automake
-%{?with_freetds:BuildRequires:	freetds-devel}
-BuildRequires:	libdbi-devel >= %{dbiver}
-BuildRequires:	libtool
-%{?with_mysql:BuildRequires:	mysql-devel}
-%{?with_pgsql:BuildRequires:	postgresql-devel}
-%{?with_sqlite:BuildRequires:	sqlite-devel}
-%{?with_sqlite3:BuildRequires:	sqlite3-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -120,6 +119,25 @@ Ta wtyczka daje możliwość łączenia się z serwerami MySQL poprzez
 bibliotekę libdbi. Zmiana używanej wtyczki nie wymaga rekompilacji ani
 zmiany źródeł programu.
 
+%package oracle
+Summary:	Oracle plugin for libdbi
+Summary(pl.UTF-8):	Wtyczka Oracle dla libdbi
+Group:		Libraries
+Requires:	libdbi >= %{dbiver}
+Provides:	libdbi-dbd = %{version}-%{release}
+Obsoletes:	libdbi-dbd-oracle
+
+%description oracle
+This plugin provides connectivity to Oracle database servers through
+the libdbi database independent abstraction layer. Switching a
+program's plugin does not require recompilation or rewriting source
+code.
+
+%description oracle -l pl.UTF-8
+Ta wtyczka daje możliwość łączenia się z serwerami baz danych Oracle
+poprzez bibliotekę libdbi. Zmiana używanej wtyczki nie wymaga
+rekompilacji ani zmiany źródeł programu.
+
 %package pgsql
 Summary:	PostgreSQL plugin for libdbi
 Summary(pl.UTF-8):	Wtyczka PostgreSQL dla libdbi
@@ -174,7 +192,7 @@ bibliotekę libdbi. Zmiana używanej wtyczki nie wymaga rekompilacji ani
 zmiany źródeł programu.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
 
 %build
@@ -200,7 +218,12 @@ zmiany źródeł programu.
 	--enable-mysql-threadsafe \
 	--with-mysql \
 	--with-mysql-libdir=%{_libdir} \
-	--with-mysql-incdir=%{_includedir} \
+	--with-mysql-incdir=%{_includedir}/mysql \
+%endif
+%if %{with oci}
+	--with-oracle \
+	--with-oracle-libdir=%{_libdir} \
+	--with-oracle-incdir=%{_includedir}/oracle/client \
 %endif
 %if %{with pgsql}
 	--with-pgsql \
@@ -256,6 +279,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc drivers/mysql/{AUTHORS,README,TODO%{?with_doc:,dbd_mysql.pdf,dbd_mysql}}
 %attr(755,root,root) %{_libdir}/dbd/libdbdmysql.so
+%endif
+
+%if %{with oci}
+%files oracle
+%defattr(644,root,root,755)
+%doc drivers/oracle/{AUTHORS,README,TODO%{?with_doc:,dbd_oracle.pdf,dbd_oracle}}
+%attr(755,root,root) %{_libdir}/dbd/libdbdoracle.so
 %endif
 
 %if %{with pgsql}
