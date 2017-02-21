@@ -16,12 +16,14 @@ Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.9.0
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.gz
 # Source0-md5:	9f47b960e225eede2cdeaabf7d22f59f
 Patch0:		%{name}-sqlite3_libs.patch
+Patch1:		freetds-1.0.patch
+Patch2:		firebird3.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf >= 2.13
@@ -194,6 +196,8 @@ zmiany źródeł programu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}

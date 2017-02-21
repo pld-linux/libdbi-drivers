@@ -1,0 +1,51 @@
+commit 3bf3e4a856604703c4070bdebbe42fe0068f540a
+Author: Jan Engelhardt <jengelh@inai.de>
+Date:   Fri Jan 27 09:55:41 2017 +0100
+
+    freetds: resolve compile error with 1.0
+    
+    dbd_freetds.c: In function "dbd_connect":
+    dbd_freetds.c:232:12: error: "CS_TDS_80" undeclared (first use in this function)
+          num = CS_TDS_80;
+    
+    freetds 1.0 has dropped the CS_TDS_80 identifier. In 0.95, it defined
+    CS_TDS_80=CS_TDS_71, while 0.91 has no CS_TDS_71, which is why a full
+    autoconf check is needed.
+
+diff --git a/acinclude.m4 b/acinclude.m4
+index 45db616..85eec28 100644
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -562,6 +562,19 @@ if test "$ac_freetds" = "yes"; then
+ 	AC_SUBST(FREETDS_LIBS)
+ 	AC_SUBST(FREETDS_INCLUDE)
+ 	AC_SUBST(FREETDS_LDFLAGS)
++
++	AH_TEMPLATE([DBI_CS_TDS_80], [])
++	AC_MSG_CHECKING([CS_TDS_80])
++	AC_COMPILE_IFELSE([AC_LANG_SOURCE([
++		#include <ctpublic.h>
++		int x = CS_TDS_80;
++	])], [
++		AC_DEFINE([DBI_CS_TDS_80], [CS_TDS_80])
++		AC_MSG_RESULT([CS_TDS_80])
++	], [
++		AC_DEFINE([DBI_CS_TDS_80], [CS_TDS_71])
++		AC_MSG_RESULT([CS_TDS_71])
++	])
+ else
+ 	AC_MSG_RESULT(no)
+ fi
+diff --git a/drivers/freetds/dbd_freetds.c b/drivers/freetds/dbd_freetds.c
+index 22fddfd..d01f13b 100644
+--- a/drivers/freetds/dbd_freetds.c
++++ b/drivers/freetds/dbd_freetds.c
+@@ -229,7 +229,7 @@ int dbd_connect(dbi_conn_t * conn)
+ 	switch (str[0]) {
+ //      We can use it if "CS_TDS_80" will be add to ct_con_props() by CS_SET action
+ 	case '8':
+-	    num = CS_TDS_80;
++	    num = DBI_CS_TDS_80;
+ 	    break;
+ 	case '7':
+ 	    num = CS_TDS_70;
