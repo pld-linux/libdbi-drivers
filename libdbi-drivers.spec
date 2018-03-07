@@ -219,7 +219,6 @@ zmiany źródeł programu.
 	--with-freetds-incdir=%{_includedir} \
 %endif
 %if %{with mysql}
-	--enable-mysql-threadsafe \
 	--with-mysql \
 	--with-mysql-libdir=%{_libdir} \
 	--with-mysql-incdir=%{_includedir}/mysql \
