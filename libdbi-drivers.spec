@@ -16,7 +16,7 @@ Summary:	Database Independent Abstraction Layer for C
 Summary(pl.UTF-8):	Warstwa DBI dla C
 Name:		libdbi-drivers
 Version:	0.9.0
-Release:	4
+Release:	5
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.gz
@@ -24,6 +24,7 @@ Source0:	http://downloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.
 Patch0:		%{name}-sqlite3_libs.patch
 Patch1:		freetds-1.0.patch
 Patch2:		firebird3.patch
+Patch3:		firebird-gcc14.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf >= 2.13
@@ -198,6 +199,7 @@ zmiany źródeł programu.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 %{__libtoolize}
@@ -245,13 +247,13 @@ zmiany źródeł programu.
 %endif
 	--with-dbi-incdir=%{_includedir} \
 	--with-dbi-libdir=%{_libdir}
-%{__make}
+%{__make} -C drivers
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}/dbd
 
-%{__make} install \
+%{__make} -C drivers install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/dbd/lib*.la

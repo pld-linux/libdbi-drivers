@@ -1,0 +1,32 @@
+diff -urN libdbi-drivers-0.9.0.orig/drivers/firebird/dbd_firebird.c libdbi-drivers-0.9.0/drivers/firebird/dbd_firebird.c
+--- libdbi-drivers-0.9.0.orig/drivers/firebird/dbd_firebird.c	2013-01-09 22:20:07.000000000 +0100
++++ libdbi-drivers-0.9.0/drivers/firebird/dbd_firebird.c	2026-03-15 00:28:47.723798012 +0100
+@@ -42,6 +42,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
++#include <ctype.h>
+ #include <ibase.h>
+ 
+ #include "dbd_firebird.h"
+@@ -354,7 +355,7 @@
+ 
+ 	XSQLVAR *var;
+ 	XSQLDA  *sqlda; /* output SQLDA */
+-	isc_stmt_handle stmt = NULL; /* statement handle */
++	isc_stmt_handle stmt = 0; /* statement handle */
+ 	ibase_stmt_t *res;
+ 	dbi_result_t *result;
+ 	static char stmt_info[] = { isc_info_sql_stmt_type };
+diff -urN libdbi-drivers-0.9.0.orig/drivers/firebird/utility.c libdbi-drivers-0.9.0/drivers/firebird/utility.c
+--- libdbi-drivers-0.9.0.orig/drivers/firebird/utility.c	2010-07-19 22:16:42.000000000 +0200
++++ libdbi-drivers-0.9.0/drivers/firebird/utility.c	2026-03-15 00:28:47.725839562 +0100
+@@ -231,7 +231,7 @@
+ 	XSQLVAR var;
+ 	long fetch_stat = 0, blob_stat = 0;
+ 	ISC_QUAD bid;
+-	isc_blob_handle blob_handle = NULL; /* Blob handle. */ 
++	isc_blob_handle blob_handle = 0; /* Blob handle. */ 
+ 	char blob_segment[80];
+ 	unsigned short actual_seg_len;		
+ 	struct tm times;
