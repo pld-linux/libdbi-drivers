@@ -25,6 +25,7 @@ Patch0:		%{name}-sqlite3_libs.patch
 Patch1:		freetds-1.0.patch
 Patch2:		firebird3.patch
 Patch3:		firebird-gcc14.patch
+Patch4:		gcc15.patch
 URL:		http://libdbi-drivers.sourceforge.net/
 %{?with_firebird:BuildRequires:	Firebird-devel}
 BuildRequires:	autoconf >= 2.13
@@ -200,6 +201,7 @@ zmiany źródeł programu.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 %{__libtoolize}

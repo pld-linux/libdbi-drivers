@@ -1,0 +1,67 @@
+--- libdbi-drivers-0.9.0/drivers/firebird/dbd_firebird.c.orig	2026-05-06 01:53:18.000000000 +0200
++++ libdbi-drivers-0.9.0/drivers/firebird/dbd_firebird.c	2026-05-06 01:55:45.940013996 +0200
+@@ -372,7 +372,7 @@
+        if (isc_dsql_allocate_statement(iconn->status_vector, &(iconn->db), &stmt)) {
+ 	       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 		       char msg[512];
+-		       long* pvector = iconn->status_vector;
++		       int* pvector = iconn->status_vector;
+ 		       isc_interprete(msg, &pvector);
+ 		       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 	       }
+@@ -386,7 +386,7 @@
+        if (isc_dsql_prepare(iconn->status_vector, &(iconn->trans), &stmt, 0, (char *)statement, 3, sqlda)) {
+ 	       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 		       char msg[512];
+-		       long* pvector = iconn->status_vector;
++		       int* pvector = iconn->status_vector;
+ 		       isc_interprete(msg, &pvector);
+ 		       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 	       }
+@@ -406,7 +406,7 @@
+ 	       if (isc_dsql_execute(iconn->status_vector, &(iconn->trans), &stmt , SQL_DIALECT_V6, NULL)) {
+ 		       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 			       char msg[512];
+-			       long* pvector = iconn->status_vector;
++			       int* pvector = iconn->status_vector;
+ 			       isc_interprete(msg, &pvector);
+ 			       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 		       }
+@@ -420,7 +420,7 @@
+ 		       if (isc_commit_transaction(iconn->status_vector, &(iconn->trans))) {
+ 			       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 				       char msg[512];
+-				       long* pvector = iconn->status_vector;
++				       int* pvector = iconn->status_vector;
+ 				       isc_interprete(msg, &pvector);
+ 				       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 			       }
+@@ -463,7 +463,7 @@
+ 		       if (isc_dsql_describe(iconn->status_vector, &stmt, SQL_DIALECT_V6, sqlda)) {
+ 			       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 				       char msg[512];
+-				       long* pvector = iconn->status_vector;
++				       int* pvector = iconn->status_vector;
+ 				       isc_interprete(msg, &pvector);
+ 				       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 			       }
+@@ -496,7 +496,7 @@
+ 		       free(sqlda);
+ 		       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
+ 			       char msg[512];
+-			       long* pvector = iconn->status_vector;
++			       int* pvector = iconn->status_vector;
+ 			       isc_interprete(msg, &pvector);
+ 			       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
+ 		       }
+--- libdbi-drivers-0.9.0/drivers/firebird/utility.c.orig	2026-05-06 01:53:18.000000000 +0200
++++ libdbi-drivers-0.9.0/drivers/firebird/utility.c	2026-05-06 01:56:13.646680659 +0200
+@@ -97,7 +97,7 @@
+ 	isc_attach_database(status_vector, strlen(dbase), dbase, &db, dpb_length, dpb);
+ 	if (status_vector[0] == 1 && status_vector[1]) {
+ 		char msg[512];
+-		long* pvector = status_vector;
++		int* pvector = status_vector;
+ 		dealocate_iconn( iconn );
+ 		isc_interprete(msg, &pvector);
+ 		_dbd_internal_error_handler(conn, msg, DBI_ERROR_DBD);
