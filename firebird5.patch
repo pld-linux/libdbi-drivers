@@ -5,7 +5,7 @@
  	       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  		       char msg[512];
 -		       long* pvector = iconn->status_vector;
-+		       int* pvector = iconn->status_vector;
++		       ISC_STATUS* pvector = iconn->status_vector;
  		       isc_interprete(msg, &pvector);
  		       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  	       }
@@ -14,7 +14,7 @@
  	       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  		       char msg[512];
 -		       long* pvector = iconn->status_vector;
-+		       int* pvector = iconn->status_vector;
++		       ISC_STATUS* pvector = iconn->status_vector;
  		       isc_interprete(msg, &pvector);
  		       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  	       }
@@ -23,7 +23,7 @@
  		       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  			       char msg[512];
 -			       long* pvector = iconn->status_vector;
-+			       int* pvector = iconn->status_vector;
++			       ISC_STATUS* pvector = iconn->status_vector;
  			       isc_interprete(msg, &pvector);
  			       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  		       }
@@ -32,7 +32,7 @@
  			       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  				       char msg[512];
 -				       long* pvector = iconn->status_vector;
-+				       int* pvector = iconn->status_vector;
++				       ISC_STATUS* pvector = iconn->status_vector;
  				       isc_interprete(msg, &pvector);
  				       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  			       }
@@ -41,7 +41,7 @@
  			       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  				       char msg[512];
 -				       long* pvector = iconn->status_vector;
-+				       int* pvector = iconn->status_vector;
++				       ISC_STATUS* pvector = iconn->status_vector;
  				       isc_interprete(msg, &pvector);
  				       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  			       }
@@ -50,7 +50,7 @@
  		       if (iconn->status_vector[0] == 1 && iconn->status_vector[1]) {
  			       char msg[512];
 -			       long* pvector = iconn->status_vector;
-+			       int* pvector = iconn->status_vector;
++			       ISC_STATUS* pvector = iconn->status_vector;
  			       isc_interprete(msg, &pvector);
  			       _dbd_internal_error_handler(conn, msg, DBI_ERROR_CLIENT);
  		       }
@@ -61,7 +61,7 @@
  	if (status_vector[0] == 1 && status_vector[1]) {
  		char msg[512];
 -		long* pvector = status_vector;
-+		int* pvector = status_vector;
++		ISC_STATUS* pvector = status_vector;
  		dealocate_iconn( iconn );
  		isc_interprete(msg, &pvector);
  		_dbd_internal_error_handler(conn, msg, DBI_ERROR_DBD);
